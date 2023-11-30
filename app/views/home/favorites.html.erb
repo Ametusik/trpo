@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Favorites</h1>
+
+<div id="tickets">
+  <% @real_estates.each do |real_estate| %>
+    <%= render real_estate %>
+    <p>
+      <%= link_to "Show this real estate", real_estate %>
+      <%#= link_to "Remove this real estate", controller: "tickets", action: "remove_ticket", id: real_estate.id %>
+    </p>
+  <% end %>
+</div>

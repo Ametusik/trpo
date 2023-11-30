@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>My</h1>
+
+<%= button_to "Выйти из аккаунта", destroy_user_session_path, id: current_user.id, method: :delete %>
+<%= link_to "Редактировать профиль", edit_user_registration_path %>
+
+<div id="tickets">
+  <% @real_estates.each do |real_estate| %>
+    <%= render real_estate %>
+    <p>
+      <%= link_to "Show this real estate", real_estate %>
+      <%= button_to "Delete this real estate", real_estate, method: :delete %>
+    </p>
+  <% end %>
+</div>

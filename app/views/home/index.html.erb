@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<%= link_to "Main page", root_path %>
+<%= link_to "New real estate", new_real_estate_path %>
+<%= link_to "Search", :search %>
+<%= link_to "Profile", :my %>
+
+
+<h1>Real estates</h1>
+
+<div id="real_estates">
+  <% @real_estates.each do |real_estate| %>
+    <%= render real_estate %>
+    <p>
+      <%= link_to "Show this real estate", real_estate %>
+    </p>
+  <% end %>
+</div>

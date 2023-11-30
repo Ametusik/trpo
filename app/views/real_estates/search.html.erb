@@ -1,0 +1,29 @@
+<div class="body">
+  <div class="flex-container">
+    <div class="body__content">
+      <%= form_tag(root_path, method: :get) do %>
+        <div>
+          <%= label_tag :name, 'Name' %>
+          <%= text_field_tag :name %>
+        </div>
+
+        <div>
+          <%= label_tag :description, 'Description' %>
+          <%= text_field_tag :description %>
+        </div>
+
+        <div>
+          <%= label_tag :price, 'Price' %>
+          <%= text_field_tag :price %>
+        </div>
+
+        <div>
+          <%= label_tag :phone_number, 'Phone number' %>
+          <%= text_field_tag :phone_number %>
+        </div>
+
+        <%= submit_tag 'Search' %>
+      <% end %>
+    </div>
+  </div>
+</div>

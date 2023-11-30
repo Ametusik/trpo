@@ -1,0 +1,8 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @real_estate %>
+
+<div>
+  <%= link_to "Add to favorites", add_to_favorite_path, id: @real_estate.id %> |
+  <%= link_to "Back to real estates", real_estates_path %>
+</div>
