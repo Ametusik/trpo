@@ -1,5 +1,5 @@
 class RealEstatesController < ApplicationController
-  before_action :authenticate_user!, only: %i[ add_to_favorite edit create update ]
+  before_action :authenticate_user!, only: %i[ add_to_favorite edit create update destroy ]
   before_action :set_real_estate, only: %i[ add_to_favorite show edit update destroy ]
   before_action :store_user_location!, if: :storable_location?
 
@@ -64,6 +64,12 @@ class RealEstatesController < ApplicationController
     user = User.find(current_user.id)
     user.real_estates << @real_estate if user.real_estates.where(id: @real_estate.id).first.blank?
     redirect_to :real_estate
+  end
+
+  def remove_from_favorite
+    user = User.find(current_user.id)
+    user.real_estates.delete(params[:id])
+    redirect_to :favorites
   end
 
   def search

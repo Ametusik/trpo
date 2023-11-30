@@ -1,3 +1,8 @@
+<%= link_to "Main page", root_path %>
+<%= link_to "New real estate", new_real_estate_path %>
+<%= link_to "Search", :search %>
+<%= link_to "Profile", :my %>
+
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>

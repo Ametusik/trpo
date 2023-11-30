@@ -1,5 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
+<%= link_to "Main page", root_path %>
+<%= link_to "New real estate", new_real_estate_path %>
+<%= link_to "Search", :search %>
+<%= link_to "Profile", :my %>
+
 <h1>Favorites</h1>
 
 <div id="tickets">
@@ -7,7 +12,7 @@
     <%= render real_estate %>
     <p>
       <%= link_to "Show this real estate", real_estate %>
-      <%#= link_to "Remove this real estate", controller: "tickets", action: "remove_ticket", id: real_estate.id %>
+      <%= link_to "Remove this real estate", controller: "real_estates", action: "remove_from_favorite", id: real_estate.id %>
     </p>
   <% end %>
 </div>
