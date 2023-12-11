@@ -20,6 +20,12 @@ class RealEstatesController < ApplicationController
 
   # GET /real_estates/1/edit
   def edit
+    begin
+      authorize @real_estate
+    rescue Pundit::NotAuthorizedError
+      redirect_to root_path
+      return
+    end
   end
 
   # POST /real_estates or /real_estates.json
@@ -41,7 +47,7 @@ class RealEstatesController < ApplicationController
   def update
     respond_to do |format|
       if @real_estate.update(real_estate_params)
-        format.html { redirect_to real_estate_url(@real_estate), notice: "Real estate was successfully updated." }
+        format.html { redirect_to my_path, notice: "Real estate was successfully updated." }
         format.json { render :show, status: :ok, location: @real_estate }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,6 +58,12 @@ class RealEstatesController < ApplicationController
 
   # DELETE /real_estates/1 or /real_estates/1.json
   def destroy
+    begin
+    authorize @real_estate
+    rescue Pundit::NotAuthorizedError
+      redirect_to root_path
+      return
+  end
     @real_estate.destroy!
 
     respond_to do |format|
@@ -72,21 +84,36 @@ class RealEstatesController < ApplicationController
     redirect_to :favorites
   end
 
+  def revalidate_real_estate
+    begin
+      authorize RealEstate
+      rescue Pundit::NotAuthorizedError
+        redirect_to root_path
+        return
+    end
+
+    real_estate = RealEstate.where(id: params[:id]).first
+    real_estate.validated = !real_estate.validated
+    real_estate.save
+    redirect_to :admin_page
+  end
+
   def search
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_real_estate
-      @real_estate = RealEstate.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def real_estate_params
-      authenticate_user! unless user_signed_in?
-      params.require(:real_estate).permit(:name, :description, :price, :phone_number, :user_id)
-            .with_defaults(user_id: current_user.id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_real_estate
+    @real_estate = RealEstate.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def real_estate_params
+    authenticate_user! unless user_signed_in?
+    params.require(:real_estate).permit(:name, :description, :price, :phone_number, :user_id, :validated)
+          .with_defaults(user_id: current_user.id, validated: false)
+  end
 
   def storable_location?
     request.get? &&

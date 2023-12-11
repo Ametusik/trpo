@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   protect_from_forgery prepend: true
 
   def index
-    @real_estates = RealEstate.all
+    @real_estates = RealEstate.where(validated: true)
 
     @real_estates = @real_estates.where(name: params[:name]) unless params[:name].blank?
     @real_estates = @real_estates.where(description: params[:description]) unless params[:description].blank?

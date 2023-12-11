@@ -7,4 +7,8 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { in: 1..100 }
   validates :last_name, presence: true, length: { in: 1..100 }
   validates :email, presence: true, length: { in: 1..150 }, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def admin?
+    role.eql?("admin")
+  end
 end
